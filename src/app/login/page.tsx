@@ -7,7 +7,7 @@ import './login.css';
 export default function LogIn() {
   const router = useRouter();
   var state = generateRandomString(16);
-  var scope = 'user-read-private user-read-email';
+  var scope = 'user-read-private user-read-email user-read-recently-played';
 
   const handleLogIn = () => {
     router.push('https://accounts.spotify.com/authorize?' +
