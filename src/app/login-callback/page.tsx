@@ -1,7 +1,7 @@
 'use client';
 import {useSearchParams, useRouter} from "next/navigation";
 import {setCookie} from 'cookies-next';
-import {collection, addDoc, setDoc, doc} from "firebase/firestore";
+import {collection, addDoc, setDoc, doc, getDoc, updateDoc} from "firebase/firestore";
 import {db} from "@/firebaseConfig";
 import {useEffect, useRef, useState} from "react";
 
@@ -25,12 +25,24 @@ export default function LoginCallback() {
           return;
         }
         const tokenData = await response.json();
-        await setDoc(doc(db, "users", tokenData.spotifyId), {
-          email: tokenData.email,
-          spotifyId: tokenData.spotifyId,
-          refreshToken: tokenData.refreshToken,
-          solanaAddress: '',
-        });
+        if (!tokenData.spotifyId || !tokenData.token || !tokenData.refreshToken) {
+          setError('Invalid token data');
+          return;
+        }
+        const docRef = doc(db, "users", tokenData.spotifyId);
+        const docSnap = await getDoc(docRef);
+        if (!docSnap.exists()) {
+          await setDoc(doc(db, "users", tokenData.spotifyId), {
+            email: tokenData.email,
+            spotifyId: tokenData.spotifyId,
+            refreshToken: tokenData.refreshToken,
+            solanaAddress: '',
+          });
+        } else {
+          await updateDoc(docRef, {
+            refreshToken: tokenData.refreshToken,
+          });
+        }
         setCookie('spotifyToken', tokenData.token)
         setCookie('spotifyId', tokenData.spotifyId)
         setCookie('spotifyRefreshToken', tokenData.refreshToken)
