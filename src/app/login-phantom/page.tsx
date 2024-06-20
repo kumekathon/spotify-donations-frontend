@@ -5,6 +5,7 @@ import {getCookie} from "cookies-next";
 import {useRouter} from "next/navigation";
 import {doc, getDoc, setDoc, updateDoc} from "firebase/firestore";
 import {db} from "@/firebaseConfig";
+import {Button} from "@/components/ui/button";
 
 
 export default function LoginPhantom() {
@@ -52,7 +53,7 @@ export default function LoginPhantom() {
             });
           }
         })
-        router.push('/');
+        router.push('/dashboard');
       } else {
         setConnectionStatus('Disconnected')
       }
@@ -82,14 +83,19 @@ export default function LoginPhantom() {
   }
 
   return (
-    <div>
-      <p>{name.toUpperCase()}</p>
-      <h3>Status - {(error?.message) ? ("Error: " + error.message) : connectionStatus}</h3>
-      <h3>Address - {account ? account : "No Account Detected"}</h3>
-      <h3>ChainId - {chain ? chain : 'No Chain Connected'}</h3>
-      <button onClick={handleToggleConnect} disabled={false}>
-        {isActive ? "Disconnect" : "Connect"}
-      </button>
+    <div className="flex items-center justify-center min-h-screen bg-black text-white">
+      <div className="flex w-full max-w-4xl gap-8 p-4 md:p-8">
+        <div className="flex flex-col items-center gap-8 flex-1">
+          <Button onClick={handleToggleConnect}
+            className="bg-[#1DB954] text-white hover:bg-[#1ED760] w-72 h-12 rounded-full font-medium items-center">
+            Connect wallet
+          </Button>
+          <Button onClick={() => router.push('https://phantom.app/download')}
+            className="fill-none border-2 border-white text-white hover:bg-white hover:text-black w-72 h-12 rounded-full font-medium items-center">
+            Create wallet
+          </Button>
+        </div>
+      </div>
     </div>
   )
 }
