@@ -1,3 +1,4 @@
+'use client';
 import {Button} from "@/components/ui/button";
 import {getCookie} from "cookies-next";
 import {useRouter} from "next/navigation";
