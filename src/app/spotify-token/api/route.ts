@@ -24,6 +24,7 @@ export async function GET(request: Request) {
   });
 
   const responseData = await response.json();
+  console.log(responseData);
   const token: string = responseData.access_token;
   const expiresIn: string = responseData.expires_in;
   const refreshToken: string = responseData.refresh_token;
