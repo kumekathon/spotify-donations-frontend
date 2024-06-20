@@ -15,7 +15,6 @@ const donate = async (
     connection: Connection,
     programId: PublicKey,
     statePubkey: PublicKey,
-    fromPubkey: PublicKey,
     toPubkey: PublicKey,
     authorityPubkey: PublicKey,
     account_id: string,
@@ -45,7 +44,7 @@ const donate = async (
         const donateIx = new TransactionInstruction({
             keys: [
                 { pubkey: statePubkey, isSigner: false, isWritable: true },
-                { pubkey: fromPubkey, isSigner: true, isWritable: true },
+                { pubkey: userPublicKey, isSigner: true, isWritable: true },
                 { pubkey: toPubkey, isSigner: false, isWritable: true },
                 { pubkey: authorityPubkey, isSigner: true, isWritable: false },
                 { pubkey: TOKEN_PROGRAM_ID, isSigner: false, isWritable: false },
