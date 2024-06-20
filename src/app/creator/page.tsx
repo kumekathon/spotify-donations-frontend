@@ -1,6 +1,15 @@
 import {Button} from "@/components/ui/button";
+import {getCookie} from "cookies-next";
+import {useRouter} from "next/navigation";
 
 export default function CreatorPage() {
+  const spotifyId = getCookie('spotifyId')?.toString();
+  const router = useRouter();
+
+  if (!spotifyId) {
+    router.push('/login');
+  }
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-black text-white">
       <div className="flex w-full max-w-4xl gap-8 p-4 md:p-8">
