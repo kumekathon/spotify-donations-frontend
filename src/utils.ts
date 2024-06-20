@@ -7,3 +7,17 @@ export function generateRandomString(length: number) {
   }
   return text;
 }
+
+
+const getProvider = () => {
+  if ('phantom' in window) {
+    // @ts-ignore
+    const provider = window.phantom?.solana;
+
+    if (provider?.isPhantom) {
+      return provider;
+    }
+  }
+
+  window.open('https://phantom.app/', '_blank');
+};

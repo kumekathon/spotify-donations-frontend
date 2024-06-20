@@ -68,7 +68,7 @@ export default function LoginCallback() {
   }
 
   if (ready) {
-    router.push('/');
+    router.push('/login-phantom');
   }
 
 }
