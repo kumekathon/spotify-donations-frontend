@@ -8,7 +8,7 @@ import {
 } from '@solana/web3.js';
 import { TOKEN_PROGRAM_ID, createTransferInstruction } from '@solana/spl-token';
 import { Web3Provider } from '@ethersproject/providers';
-import {BN} from "@project-serum/anchor";
+import {BN, getProvider} from "@project-serum/anchor";
 
 const donate = async (
     provider: Web3Provider,
@@ -22,7 +22,17 @@ const donate = async (
     amount: number
 ) => {
     try {
-        const userPublicKey = provider.getSigner().getAddress();
+        const getProvider = () => {
+            if ('phantom' in window) {
+                // @ts-ignore
+                const provider = window.phantom?.solana;
+
+                if (provider?.isPhantom) {
+                    return provider;
+                }
+            }
+        const provider = getProvider();
+        const userPublicKey = new PublicKey(await provider.getSigner().getAddress());
 
         const account_id_bytes = new TextEncoder().encode(account_id);
         const amount_bytes = new Uint8Array(new BN(amount).toArray('le', 8));
@@ -46,8 +56,13 @@ const donate = async (
         });
 
         const transaction = new Transaction().add(donateIx);
-        const signedTransaction = await provider.getSigner().signTransaction(transaction);
-        const signature = await sendAndConfirmTransaction(connection, signedTransaction, [provider.getSigner()]);
+        transaction.feePayer = userPublicKey;
+        transaction.recentBlockhash = (await connection.getRecentBlockhash()).blockhash;
+
+        const signedTransaction = await provider.signAndSendTransaction(transaction);
+
+        const signer = provider.getSigner();
+        const signature = await sendAndConfirmTransaction(connection, signedTransaction.serialize(), [signer]);
 
         console.log('Transaction sent with signature', signature);
     } catch (err) {
@@ -55,7 +70,6 @@ const donate = async (
     }
 };
 
-// Пример использования функции
 (async () => {
     // const provider = new Web3Provider(window.ethereum);
     await provider.send('eth_requestAccounts', []);
