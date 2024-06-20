@@ -14,8 +14,6 @@ export default function LoginPhantom() {
 
   const {connector, hooks} = useWeb3React();
 
-  const name = 'Spotify donations';
-
   const {useSelectedAccount, useSelectedChainId, useSelectedIsActive, useSelectedIsActivating} = hooks;
   const isActivating = useSelectedIsActivating(connector)
   const isActive = useSelectedIsActive(connector)
