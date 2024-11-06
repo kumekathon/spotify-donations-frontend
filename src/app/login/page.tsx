@@ -40,7 +40,7 @@ export default function LogIn() {
       </div>
       <div className="flex flex-col min-w-full my-20 px-20">
         <h1 className="text-9xl w-2/3 font-satoshi">Payback the</h1>
-        <h1 className="text-9xl w-2/3 mt-2 font-satoshi">artist</h1>
+        <h1 className="text-9xl w-2/3 mt-2 font-satoshi">artists</h1>
       </div>
       <div className="flex min-w-full min-h-full max-w-4xl gap-8 p-4 md:p-8">
         <div className="flex flex-col items-center justify-center flex-1">
