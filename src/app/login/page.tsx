@@ -33,8 +33,16 @@ export default function LogIn() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-black text-white">
-      <div className="flex w-full max-w-4xl gap-8 p-4 md:p-8">
+    <div className="flex flex-col min-h-screen background-image text-white">
+      {/* Add a logo in the top left corner of page */}
+      <div className="flex w-full min-h-full p-10">
+        <img src="/logo.png" alt="logo" className="w-16 h-16"/>
+      </div>
+      <div className="flex flex-col min-w-full my-20 px-20">
+        <h1 className="text-9xl w-2/3 font-satoshi">Payback the</h1>
+        <h1 className="text-9xl w-2/3 mt-2 font-satoshi">artist</h1>
+      </div>
+      <div className="flex min-w-full min-h-full max-w-4xl gap-8 p-4 md:p-8">
         <div className="flex flex-col items-center justify-center flex-1">
           <Button onClick={isLoggedIn ? handleLogOut : handleLogIn}
             className="mt-8 bg-[#1DB954] text-white hover:bg-[#1ED760] px-12 py-2 rounded-full font-medium items-center">

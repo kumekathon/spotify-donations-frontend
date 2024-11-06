@@ -7,3 +7,12 @@
     cursor: pointer;
     transition: background-color 0.2s;
 }
+
+.background-image {
+    background-image: url("/background.png") !important;
+    background-size: cover;
+}
+
+.font-satoshi {
+    font-family: 'Satoshi-Medium';
+}
