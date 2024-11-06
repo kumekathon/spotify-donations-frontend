@@ -36,7 +36,7 @@ export default function LogIn() {
     <div className="flex flex-col min-h-screen background-image text-white">
       {/* Add a logo in the top left corner of page */}
       <div className="flex w-full min-h-full p-10">
-        <img src="/logo.png" alt="logo" className="w-16 h-16"/>
+        <img src="/Logo.png" alt="logo" className="w-16 h-16"/>
       </div>
       <div className="flex flex-col min-w-full my-20 px-20">
         <h1 className="text-9xl w-2/3 font-satoshi">Payback the</h1>
